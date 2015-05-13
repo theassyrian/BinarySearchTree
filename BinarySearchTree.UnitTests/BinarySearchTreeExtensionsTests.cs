@@ -25,6 +25,26 @@ namespace BinarySearchTree.UnitTests
         }
 
         [Fact]
+        public void Exists_CheckIfElementExists_ItExists()
+        {
+            var bst = Repository.CreateTree();
+
+            var exists = bst.Exists(Repository.BiggestElement);
+
+            Assert.True(exists);
+        }
+
+        [Fact]
+        public void Exists_CheckIfElementExists_ItDoesntExist()
+        {
+            var bst = Repository.CreateTree();
+
+            var exists = bst.Exists(Repository.NotAnElement);
+
+            Assert.False(exists);
+        }
+
+        [Fact]
         public void Size_MeasureSizeOfTree_Size()
         {
             var bst = Repository.CreateTree();

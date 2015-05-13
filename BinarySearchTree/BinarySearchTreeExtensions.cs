@@ -16,6 +16,21 @@ namespace BinarySearchTree
             return _this.SearchForOneNode(v => Value.IsSmaller, true);
         }
 
+        public static bool Exists<T>(this BinarySearchTree<T> _this, T value)
+            where T : IComparable<T>
+        {
+            bool exists = false;
+
+            _this.SearchForOneNode(v =>
+            {
+                var result = (Value)value.CompareTo(v);
+                exists = result == Value.IsEqual;
+                return result;
+            });
+
+            return exists;
+        }
+
         public static int Size<T>(this BinarySearchTree<T> _this)
             where T : IComparable<T>
         {

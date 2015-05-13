@@ -31,6 +31,11 @@ namespace BinarySearchTree.UnitTests.Repositories
             get { return Elements.Max(); }
         }
 
+        public static int NotAnElement
+        {
+            get { return 0; }
+        }
+
         public static bool TreeContains(int element)
         {
             return Elements.Contains(element);
