@@ -1,6 +1,7 @@
 ﻿using System;
 
 using BinarySearchTree.Data;
+using System.Diagnostics.Contracts;
 
 namespace BinarySearchTree
 {
@@ -19,11 +20,21 @@ namespace BinarySearchTree
 
         internal T SearchForOneNode(Func<T, Value> callback, bool noEmptyValue = false)
         {
+            if (Root == null)
+                return default(T);
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             return SearchForOneNode(Root, callback, noEmptyValue);
         }
 
         internal void TraverseAllNodes(Action<T, int> callback)
         {
+            if (Root == null)
+                return;
+            if (callback == null)
+                throw new ArgumentNullException("callback");
+
             TraverseAllNodes(Root, callback, 1);
         }
 

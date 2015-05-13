@@ -4,6 +4,7 @@ using Xunit;
 
 using BinarySearchTree.UnitTests.Helpers;
 using BinarySearchTree.UnitTests.Repositories;
+using System;
 
 namespace BinarySearchTree.UnitTests
 {
@@ -83,6 +84,24 @@ namespace BinarySearchTree.UnitTests
         }
 
         [Fact]
+        public void SearchForOneNode_InEmptyTree_DefaultElement()
+        {
+            var emptyTree = new BinarySearchTree<int>();
+
+            var value = emptyTree.SearchForOneNode(v => Value.IsEqual);
+
+            Assert.Equal(Repository.DefaultElement, value);
+        }
+
+        [Fact]
+        public void SearchForOneNode_ThrowsOnNullCallback_Exception()
+        {
+            var emptyTree = Repository.CreateTree();
+
+            Assert.Throws<ArgumentNullException>(() => emptyTree.SearchForOneNode(null));
+        }
+
+        [Fact]
         public void SearchForOneNode_WalkThroughTheLeftPath_DefaultElement()
         {
             var bst = Repository.CreateTree();
@@ -130,6 +149,22 @@ namespace BinarySearchTree.UnitTests
             var value = bst.SearchForOneNode(v => Value.IsEqual);
 
             Assert.Equal(Repository.RootElement, value);
+        }
+
+        [Fact]
+        public void TraverseAllNodes_InEmptyTree_NoExceptions()
+        {
+            var emptyTree = new BinarySearchTree<int>();
+
+            emptyTree.TraverseAllNodes((v, l) => { });
+        }
+
+        [Fact]
+        public void TraverseAllNodes_ThrowsOnNullCallback_Exception()
+        {
+            var emptyTree = Repository.CreateTree();
+
+            Assert.Throws<ArgumentNullException>(() => emptyTree.TraverseAllNodes(null));
         }
 
         [Fact]
