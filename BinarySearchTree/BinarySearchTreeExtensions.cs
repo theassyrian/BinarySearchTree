@@ -7,13 +7,17 @@ namespace BinarySearchTree
         public static T Max<T>(this BinarySearchTree<T> _this)
             where T : IComparable<T>
         {
-            return _this.SearchForOneNode(v => Value.IsBigger, true);
+            var node = _this.SearchForOneNode(v => Value.IsBigger, true);
+
+            return node.Value;
         }
 
         public static T Min<T>(this BinarySearchTree<T> _this)
             where T : IComparable<T>
         {
-            return _this.SearchForOneNode(v => Value.IsSmaller, true);
+            var node = _this.SearchForOneNode(v => Value.IsSmaller, true);
+
+            return node.Value;
         }
 
         public static bool Exists<T>(this BinarySearchTree<T> _this, T value)
@@ -21,9 +25,9 @@ namespace BinarySearchTree
         {
             bool exists = false;
 
-            _this.SearchForOneNode(v =>
+            _this.SearchForOneNode(n =>
             {
-                var result = (Value)value.CompareTo(v);
+                var result = (Value)value.CompareTo(n.Value);
                 exists = result == Value.IsEqual;
                 return result;
             });

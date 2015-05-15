@@ -14,5 +14,37 @@ namespace BinarySearchTree.UnitTests.Helpers
             Assert.NotNull(node);
             Assert.Equal(expectedValue, node.Value);
         }
+
+        public static void BothChildrenAreNull<T>(Node<T> node)
+            where T : IComparable<T>
+        {
+            Assert.NotNull(node);
+            Assert.Null(node.Left);
+            Assert.Null(node.Right);
+        }
+
+        public static void BothChildrenAreNotNull<T>(Node<T> node)
+            where T : IComparable<T>
+        {
+            Assert.NotNull(node);
+            Assert.NotNull(node.Left);
+            Assert.NotNull(node.Right);
+        }
+
+        public static void LeftChildIsNull<T>(Node<T> node)
+            where T : IComparable<T>
+        {
+            Assert.NotNull(node);
+            Assert.Null(node.Left);
+            Assert.NotNull(node.Right);
+        }
+
+        public static void RightChildIsNull<T>(Node<T> node)
+            where T : IComparable<T>
+        {
+            Assert.NotNull(node);
+            Assert.NotNull(node.Left);
+            Assert.Null(node.Right);
+        }
     }
 }

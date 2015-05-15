@@ -1,7 +1,6 @@
 ﻿using System;
 
 using BinarySearchTree.Data;
-using System.Diagnostics.Contracts;
 
 namespace BinarySearchTree
 {
@@ -18,17 +17,25 @@ namespace BinarySearchTree
                 InsertTreeNextValue(Root, value);
         }
 
-        internal T SearchForOneNode(Func<T, Value> callback, bool noEmptyValue = false)
+        public void Remove(T value)
         {
             if (Root == null)
-                return default(T);
+                return;
+
+            Remove(null, Root, value);
+        }
+
+        internal Node<T> SearchForOneNode(Func<Node<T>, Value> callback, bool noNullValue = false)
+        {
+            if (Root == null)
+                return null;
             if (callback == null)
                 throw new ArgumentNullException("callback");
 
-            return SearchForOneNode(Root, callback, noEmptyValue);
+            return SearchForOneNode(Root, callback, noNullValue);
         }
 
-        internal void TraverseAllNodes(Action<T, int> callback)
+        internal void TraverseAllNodes(Action<Node<T>, int> callback)
         {
             if (Root == null)
                 return;
@@ -69,28 +76,88 @@ namespace BinarySearchTree
                 InsertTreeNextValue(node.Right, value);
         }
 
-        T SearchForOneNode(Node<T> node, Func<T, Value> callback, bool noEmptyValue)
+        void Remove(Node<T> parent, Node<T> node, T value)
         {
-            var result = callback(node.Value);
+            var result = (Value)value.CompareTo(node.Value);
 
             if (IsValueEqual(result))
-                return node.Value;
-
-            if (IsValueSmaller(result) && IsLeftNodeNotNull(node))
-                return SearchForOneNode(node.Left, callback, noEmptyValue);
-
-            if (IsValueBigger(result) && IsRightNodeNotNull(node))
-                return SearchForOneNode(node.Right, callback, noEmptyValue);
-
-            return noEmptyValue == true ? node.Value : default(T);
+                RemoveNode(parent, node);
+            else if (IsValueSmaller(result))
+                Remove(node, node.Left, value);
+            else if (IsValueBigger(result))
+                Remove(node, node.Right, value);
         }
 
-        void TraverseAllNodes(Node<T> node, Action<T, int> callback, int level)
+        void RemoveNode(Node<T> parent, Node<T> node)
+        {
+            if (IsLeftNodeNotNull(node) && IsRightNodeNotNull(node))
+                ReplaceNodeInParentWithSmallestChild(parent, node);
+
+            else if (IsLeftNodeNotNull(node))
+                ReplaceNodeInParentWithChild(parent, node, node.Left);
+
+            else if (IsRightNodeNotNull(node))
+                ReplaceNodeInParentWithChild(parent, node, node.Right);
+
+            else
+                ReplaceNodeInParentWithChild(parent, node, null);
+        }
+
+        void ReplaceNodeInParentWithSmallestChild(Node<T> parent, Node<T> node)
+        {
+            Node<T> child = null;
+            for (var current = node.Right; current != null; current = current.Left)
+            {
+                child = current.Left ?? node.Right;
+                if (child.Left == null)
+                {
+                    current.Left = null;
+                    break;
+                }
+            }
+
+            ReplaceNodeInParentWithChild(parent, node, child);
+        }
+
+        void ReplaceNodeInParentWithChild(Node<T> parent, Node<T> node, Node<T> child)
+        {
+            if (parent == null)
+            {
+                if (Root.Right != child)
+                    child.Right = Root.Right;
+                if (Root.Left != child)
+                    child.Left = Root.Left;
+
+                Root = child;
+            }
+            else if (parent.Left == node)
+                parent.Left = child;
+            else if (parent.Right == node)
+                parent.Right = child;
+        }
+
+        Node<T> SearchForOneNode(Node<T> node, Func<Node<T>, Value> callback, bool noNullValue)
+        {
+            var result = callback(node);
+
+            if (IsValueEqual(result))
+                return node;
+
+            if (IsValueSmaller(result) && IsLeftNodeNotNull(node))
+                return SearchForOneNode(node.Left, callback, noNullValue);
+
+            if (IsValueBigger(result) && IsRightNodeNotNull(node))
+                return SearchForOneNode(node.Right, callback, noNullValue);
+
+            return noNullValue ? node : null;
+        }
+
+        void TraverseAllNodes(Node<T> node, Action<Node<T>, int> callback, int level)
         {
             if (IsLeftNodeNotNull(node))
                 TraverseAllNodes(node.Left, callback, level + 1);
 
-            callback(node.Value, level);
+            callback(node, level);
 
             if (IsRightNodeNotNull(node))
                 TraverseAllNodes(node.Right, callback, level + 1);
