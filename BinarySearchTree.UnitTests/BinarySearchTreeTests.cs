@@ -284,6 +284,23 @@ namespace BinarySearchTree.UnitTests
         }
 
         [Fact]
+        public void Remove_ANotElementFromAComplexTree_TheCorrectTree()
+        {
+            var bst = Repository.CreateTree();
+
+            bst.Remove(Repository.NotAnElement.Key);
+
+            NodeAssert.NotNullAndEqual(bst.Root, Repository.RootElement);
+            NodeAssert.BothChildrenAreNotNull(bst.Root);
+
+            NodeAssert.NotNullAndEqual(bst.Root.Right, Repository.SecondBiggestElement);
+            NodeAssert.BothChildrenAreNotNull(bst.Root.Right);
+
+            NodeAssert.NotNullAndEqual(bst.Root.Left, Repository.SecondSmallestElement);
+            NodeAssert.BothChildrenAreNotNull(bst.Root.Left);
+        }
+
+        [Fact]
         public void SearchForOneNode_InEmptyTree_NoSuchNode()
         {
             var emptyTree = new BinarySearchTree<int, int>();
