@@ -6,6 +6,9 @@ using Xunit;
 using BinarySearchTree.UnitTests.Helpers;
 using BinarySearchTree.UnitTests.Repositories;
 
+using BinarySearchTree.Data;
+using Bst = BinarySearchTree;
+
 namespace BinarySearchTree.UnitTests
 {
     public class BinarySearchTreeTests
@@ -13,92 +16,94 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Insert_InsertFirstItem_TreeContainsOneItem()
         {
-            var firstValue = 1;
+            var firstNode = 1;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
         }
 
         [Fact]
         public void Insert_InsertSecondSamllerItem_TreeContainsTwoItems()
         {
-            var firstValue = 2;
-            var secondValue = 1;
+            var firstNode = 2;
+            var secondNode = 1;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Left, secondValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Left, Node(secondNode));
         }
 
         [Fact]
         public void Insert_InsertSecondBiggerItem_TreeContainsTwoItems()
         {
-            var firstValue = 2;
-            var secondValue = 3;
+            var firstNode = 2;
+            var secondNode = 3;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Right, secondValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Right, Node(secondNode));
         }
 
         [Fact]
         public void Insert_InsertTwoSamllerItems_TreeContainsTwoItems()
         {
-            var firstValue = 3;
-            var secondValue = 2;
-            var thirdValue = 1;
+            var firstNode = 3;
+            var secondNode = 2;
+            var thirdNode = 1;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
-            bst.Insert(thirdValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
+            bst.Insert(Key(thirdNode), Value(thirdNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Left, secondValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Left.Left, thirdValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Left, Node(secondNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Left.Left, Node(thirdNode));
         }
 
         [Fact]
         public void Insert_InsertTwoBiggerItems_TreeContainsTwoItems()
         {
-            var firstValue = 1;
-            var secondValue = 2;
-            var thirdValue = 3;
+            var firstNode = 1;
+            var secondNode = 2;
+            var thirdNode = 3;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
-            bst.Insert(thirdValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
+            bst.Insert(Key(thirdNode), Value(thirdNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Right, secondValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Right.Right, thirdValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Right, Node(secondNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Right.Right, Node(thirdNode));
         }
 
         [Fact]
         public void Remove_RemoveFromAnEmptyTree_NoExceptions()
         {
-            var emptyTree = new BinarySearchTree<int>();
+            var notAnElement = Repository.NotAnElement;
+            var emptyTree = new BinarySearchTree<int, int>();
 
-            emptyTree.Remove(Repository.NotAnElement);
+            emptyTree.Remove(notAnElement.Key);
         }
 
         [Fact]
         public void Remove_TheRootElement_EmptyTree()
         {
-            var rootElement = Repository.RootElement;
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(rootElement);
+            var firstNode = 1;
 
-            bst.Remove(rootElement);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+
+            bst.Remove(Key(firstNode));
 
             Assert.Null(bst.Root);
         }
@@ -106,158 +111,158 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Remove_TheRootElementWithLeftChild_NewRootIsTheLeftChild()
         {
-            var firstValue = 2;
-            var secondValue = 1;
+            var firstNode = 2;
+            var secondNode = 1;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
 
-            bst.Remove(firstValue);
+            bst.Remove(Key(firstNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, secondValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(secondNode));
             NodeAssert.BothChildrenAreNull(bst.Root);
         }
 
         [Fact]
         public void Remove_TheRootElementWithRightChild_NewRootIsTheRightChild()
         {
-            var firstValue = 2;
-            var secondValue = 3;
+            var firstNode = 2;
+            var secondNode = 3;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
 
-            bst.Remove(firstValue);
+            bst.Remove(Key(firstNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, secondValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(secondNode));
             NodeAssert.BothChildrenAreNull(bst.Root);
         }
 
         [Fact]
         public void Remove_TheRootElementWithBothChild_NewRootIsTheRightChild()
         {
-            var firstValue = 2;
-            var secondValue = 1;
-            var thirdValue = 3;
+            var firstNode = 2;
+            var secondNode = 1;
+            var thirdNode = 3;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
-            bst.Insert(thirdValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
+            bst.Insert(Key(thirdNode), Value(thirdNode));
 
-            bst.Remove(firstValue);
+            bst.Remove(Key(firstNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, thirdValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(thirdNode));
             NodeAssert.RightChildIsNull(bst.Root);
         }
 
         [Fact]
         public void Remove_TheLeftChildWithNoChildren_TheRootWithNoChildren()
         {
-            var firstValue = 2;
-            var secondValue = 1;
+            var firstNode = 2;
+            var secondNode = 1;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
 
-            bst.Remove(secondValue);
+            bst.Remove(Key(secondNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
             NodeAssert.BothChildrenAreNull(bst.Root);
         }
 
         [Fact]
         public void Remove_TheRightChildWithNoChildren_TheRootWithNoChildren()
         {
-            var firstValue = 2;
-            var secondValue = 3;
+            var firstNode = 2;
+            var secondNode = 3;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
 
-            bst.Remove(secondValue);
+            bst.Remove(Key(secondNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
             NodeAssert.BothChildrenAreNull(bst.Root);
         }
 
         [Fact]
         public void Remove_TheLeftChildWithLeftChild_TheRootWithWithLeftChild()
         {
-            var firstValue = 3;
-            var secondValue = 2;
-            var thirdValue = 1;
+            var firstNode = 3;
+            var secondNode = 2;
+            var thirdNode = 1;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
-            bst.Insert(thirdValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
+            bst.Insert(Key(thirdNode), Value(thirdNode));
 
-            bst.Remove(secondValue);
+            bst.Remove(Key(secondNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Left, thirdValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Left, Node(thirdNode));
             NodeAssert.RightChildIsNull(bst.Root);
         }
 
         [Fact]
         public void Remove_TheLeftChildWithRightChild_TheRootWithWithLeftChild()
         {
-            var firstValue = 4;
-            var secondValue = 2;
-            var thirdValue = 3;
+            var firstNode = 4;
+            var secondNode = 2;
+            var thirdNode = 3;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
-            bst.Insert(thirdValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
+            bst.Insert(Key(thirdNode), Value(thirdNode));
 
-            bst.Remove(secondValue);
+            bst.Remove(Key(secondNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Left, thirdValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Left, Node(thirdNode));
             NodeAssert.RightChildIsNull(bst.Root);
         }
 
         [Fact]
         public void Remove_TheRightChildWithRightChild_TheRootWithWithRightChild()
         {
-            var firstValue = 1;
-            var secondValue = 2;
-            var thirdValue = 3;
+            var firstNode = 1;
+            var secondNode = 2;
+            var thirdNode = 3;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
-            bst.Insert(thirdValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
+            bst.Insert(Key(thirdNode), Value(thirdNode));
 
-            bst.Remove(secondValue);
+            bst.Remove(Key(secondNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Right, thirdValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Right, Node(thirdNode));
             NodeAssert.LeftChildIsNull(bst.Root);
         }
 
         [Fact]
         public void Remove_TheRightChildWithLeftChild_TheRootWithWithRightChild()
         {
-            var firstValue = 1;
-            var secondValue = 3;
-            var thirdValue = 2;
+            var firstNode = 1;
+            var secondNode = 3;
+            var thirdNode = 2;
 
-            var bst = new BinarySearchTree<int>();
-            bst.Insert(firstValue);
-            bst.Insert(secondValue);
-            bst.Insert(thirdValue);
+            var bst = new BinarySearchTree<int, int>();
+            bst.Insert(Key(firstNode), Value(firstNode));
+            bst.Insert(Key(secondNode), Value(secondNode));
+            bst.Insert(Key(thirdNode), Value(thirdNode));
 
-            bst.Remove(secondValue);
+            bst.Remove(Key(secondNode));
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, firstValue);
-            NodeAssert.NotNullAndValueEqual(bst.Root.Right, thirdValue);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(firstNode));
+            NodeAssert.NotNullAndEqual(bst.Root.Right, Node(thirdNode));
             NodeAssert.LeftChildIsNull(bst.Root);
         }
 
@@ -266,24 +271,24 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = Repository.CreateTree();
 
-            bst.Remove(Repository.RootElement);
+            bst.Remove(Repository.RootElement.Key);
 
-            NodeAssert.NotNullAndValueEqual(bst.Root, 5);
+            NodeAssert.NotNullAndEqual(bst.Root, Node(5));
             NodeAssert.BothChildrenAreNotNull(bst.Root);
 
-            NodeAssert.NotNullAndValueEqual(bst.Root.Right, Repository.SecondBiggestElement);
+            NodeAssert.NotNullAndEqual(bst.Root.Right, Repository.SecondBiggestElement);
             NodeAssert.LeftChildIsNull(bst.Root.Right);
 
-            NodeAssert.NotNullAndValueEqual(bst.Root.Left, Repository.SecondSmallestElement);
+            NodeAssert.NotNullAndEqual(bst.Root.Left, Repository.SecondSmallestElement);
             NodeAssert.BothChildrenAreNotNull(bst.Root.Left);
         }
 
         [Fact]
         public void SearchForOneNode_InEmptyTree_NoSuchNode()
         {
-            var emptyTree = new BinarySearchTree<int>();
+            var emptyTree = new BinarySearchTree<int, int>();
 
-            var node = emptyTree.SearchForOneNode(v => Value.IsEqual);
+            var node = emptyTree.SearchForOneNode(v => Bst.Key.IsEqual);
 
             Assert.Null(node);
         }
@@ -301,7 +306,7 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = Repository.CreateTree();
 
-            var node = bst.SearchForOneNode(v => Value.IsSmaller);
+            var node = bst.SearchForOneNode(v => Bst.Key.IsSmaller);
 
             Assert.Null(node);
         }
@@ -311,7 +316,7 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = Repository.CreateTree();
 
-            var node = bst.SearchForOneNode(v => Value.IsBigger);
+            var node = bst.SearchForOneNode(v => Bst.Key.IsBigger);
 
             Assert.Null(node);
         }
@@ -321,9 +326,9 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = Repository.CreateTree();
 
-            var node = bst.SearchForOneNode(v => Value.IsSmaller, true);
+            var node = bst.SearchForOneNode(v => Bst.Key.IsSmaller, true);
 
-            Assert.Equal(Repository.SmallestElement, node.Value);
+            NodeAssert.NotNullAndEqual(Repository.SmallestElement, node);
         }
 
         [Fact]
@@ -331,9 +336,9 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = Repository.CreateTree();
 
-            var node = bst.SearchForOneNode(v => Value.IsBigger, true);
+            var node = bst.SearchForOneNode(v => Bst.Key.IsBigger, true);
 
-            Assert.Equal(Repository.BiggestElement, node.Value);
+            NodeAssert.NotNullAndEqual(Repository.BiggestElement, node);
         }
 
         [Fact]
@@ -341,15 +346,15 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = Repository.CreateTree();
 
-            var node = bst.SearchForOneNode(v => Value.IsEqual);
+            var node = bst.SearchForOneNode(v => Bst.Key.IsEqual);
 
-            Assert.Equal(Repository.RootElement, node.Value);
+            NodeAssert.NotNullAndEqual(Repository.RootElement, node);
         }
 
         [Fact]
         public void TraverseAllNodes_InEmptyTree_NoExceptions()
         {
-            var emptyTree = new BinarySearchTree<int>();
+            var emptyTree = new BinarySearchTree<int, int>();
 
             emptyTree.TraverseAllNodes((v, l) => { });
         }
@@ -372,6 +377,21 @@ namespace BinarySearchTree.UnitTests
 
             Assert.Equal(Repository.Size, elements.Count);
             Assert.All(elements, elem => Repository.TreeContains(elem));
+        }
+
+        Node<int, int> Node(int number)
+        {
+            return NodeHelper.Create(number);
+        }
+
+        int Key(int number)
+        {
+            return NodeHelper.Key(number);
+        }
+
+        int Value(int number)
+        {
+            return NodeHelper.Value(number);
         }
     }
 }

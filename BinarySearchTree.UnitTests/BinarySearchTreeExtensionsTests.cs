@@ -10,18 +10,18 @@ namespace BinarySearchTree.UnitTests
         public void Max_FindBiggestElement_BiggestElement()
         {
             var bst = Repository.CreateTree();
-            var element = bst.Max();
+            var value = bst.Max();
 
-            Assert.Equal(Repository.BiggestElement, element);
+            Assert.Equal(Repository.BiggestElement.Value, value);
         }
 
         [Fact]
         public void Min_FindSmallestElement_SmallestElement()
         {
             var bst = Repository.CreateTree();
-            var element = bst.Max();
+            var value = bst.Max();
 
-            Assert.Equal(Repository.BiggestElement, element);
+            Assert.Equal(Repository.BiggestElement.Value, value);
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = Repository.CreateTree();
 
-            var exists = bst.Exists(Repository.BiggestElement);
+            var exists = bst.Exists(Repository.BiggestElement.Key);
 
             Assert.True(exists);
         }
@@ -39,7 +39,7 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = Repository.CreateTree();
 
-            var exists = bst.Exists(Repository.NotAnElement);
+            var exists = bst.Exists(Repository.NotAnElement.Key);
 
             Assert.False(exists);
         }

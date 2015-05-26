@@ -60,6 +60,7 @@
     <Compile Include="BinarySearchTreeExtensionsTests.cs" />
     <Compile Include="BinarySearchTreeTests.cs" />
     <Compile Include="Helpers\NodeAssert.cs" />
+    <Compile Include="Helpers\NodeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>

@@ -1,5 +1,9 @@
 ﻿using System.Linq;
 
+using BinarySearchTree.UnitTests.Helpers;
+
+using BinarySearchTree.Data;
+
 namespace BinarySearchTree.UnitTests.Repositories
 {
     public class Repository
@@ -11,34 +15,34 @@ namespace BinarySearchTree.UnitTests.Repositories
             get { return Elements.Count(); }
         }
 
-        public static int SmallestElement
+        public static Node<int, int> SmallestElement
         {
-            get { return Elements.Min(); }
+            get { return NodeHelper.Create(Elements.Min()); }
         }
 
-        public static int SecondSmallestElement
+        public static Node<int, int> SecondSmallestElement
         {
-            get { return Elements.Where(e => e.CompareTo(SmallestElement) != 0).Min(); }
+            get { return NodeHelper.Create(Elements.Where(e => SmallestElement.Key != NodeHelper.Key(e)).Min()); }
         }
 
-        public static int RootElement
+        public static Node<int, int> RootElement
         {
-            get { return Elements.First(); }
+            get { return NodeHelper.Create(Elements.First()); }
         }
 
-        public static int BiggestElement
+        public static Node<int, int> BiggestElement
         {
-            get { return Elements.Max(); }
+            get { return NodeHelper.Create(Elements.Max()); }
         }
 
-        public static int SecondBiggestElement
+        public static Node<int, int> SecondBiggestElement
         {
-            get { return Elements.Where(e => e.CompareTo(BiggestElement) != 0).Max(); }
+            get { return NodeHelper.Create(Elements.Where(e => BiggestElement.Key != NodeHelper.Key(e)).Max()); }
         }
 
-        public static int NotAnElement
+        public static Node<int, int> NotAnElement
         {
-            get { return 0; }
+            get { return NodeHelper.Create(0); }
         }
 
         public static bool TreeContains(int element)
@@ -46,12 +50,12 @@ namespace BinarySearchTree.UnitTests.Repositories
             return Elements.Contains(element);
         }
 
-        public static BinarySearchTree<int> CreateTree()
+        public static BinarySearchTree<int, int> CreateTree()
         {
-            var bst = new BinarySearchTree<int>();
+            var bst = new BinarySearchTree<int, int>();
             foreach (var elem in Elements)
             {
-                bst.Insert(elem);
+                bst.Insert(NodeHelper.Key(elem), NodeHelper.Value(elem));
             }
 
             return bst;

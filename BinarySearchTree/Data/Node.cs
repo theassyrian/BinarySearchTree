@@ -8,13 +8,15 @@ using System.Xml.Serialization;
 namespace BinarySearchTree.Data
 {
     [Serializable]
-    public class Node<T>
+    public class Node<K, V>
     {
         [XmlElement]
-        public Node<T> Left { get; set; }
+        public Node<K, V> Left { get; set; }
         [XmlElement]
-        public Node<T> Right { get; set; }
+        public Node<K, V> Right { get; set; }
         [XmlElement]
-        public T Value { get; set; }
+        public K Key { get; set; }
+        [XmlElement]
+        public V Value { get; set; }
     }
 }

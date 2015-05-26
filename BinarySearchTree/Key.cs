@@ -1,6 +1,6 @@
 ﻿namespace BinarySearchTree
 {
-    enum Value
+    enum Key
     {
         IsSmaller = -1,
         IsEqual = 0,

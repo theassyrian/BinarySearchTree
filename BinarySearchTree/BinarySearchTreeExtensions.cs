@@ -4,42 +4,42 @@ namespace BinarySearchTree
 {
     public static class BinarySearchTreeExtensions
     {
-        public static T Max<T>(this BinarySearchTree<T> _this)
-            where T : IComparable<T>
+        public static V Max<K, V>(this BinarySearchTree<K, V> _this)
+            where K : IComparable<K>
         {
-            var node = _this.SearchForOneNode(v => Value.IsBigger, true);
+            var node = _this.SearchForOneNode(v => Key.IsBigger, true);
 
             return node.Value;
         }
 
-        public static T Min<T>(this BinarySearchTree<T> _this)
-            where T : IComparable<T>
+        public static V Min<K, V>(this BinarySearchTree<K, V> _this)
+            where K : IComparable<K>
         {
-            var node = _this.SearchForOneNode(v => Value.IsSmaller, true);
+            var node = _this.SearchForOneNode(v => Key.IsSmaller, true);
 
             return node.Value;
         }
 
-        public static bool Exists<T>(this BinarySearchTree<T> _this, T value)
-            where T : IComparable<T>
+        public static bool Exists<K, V>(this BinarySearchTree<K, V> _this, K key)
+            where K : IComparable<K>
         {
             bool exists = false;
 
             _this.SearchForOneNode(n =>
             {
-                var result = (Value)value.CompareTo(n.Value);
-                exists = result == Value.IsEqual;
+                var result = (Key)key.CompareTo(n.Key);
+                exists = result == Key.IsEqual;
                 return result;
             });
 
             return exists;
         }
 
-        public static int Size<T>(this BinarySearchTree<T> _this)
-            where T : IComparable<T>
+        public static int Size<K, V>(this BinarySearchTree<K, V> _this)
+            where K : IComparable<K>
         {
             int count = 0;
-            _this.TraverseAllNodes((v, l) => count++);
+            _this.TraverseAllNodes((n, l) => count++);
             return count;
         }
     }

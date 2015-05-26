@@ -4,28 +4,28 @@ using BinarySearchTree.Data;
 
 namespace BinarySearchTree
 {
-    public class BinarySearchTree<T>
-        where T : IComparable<T>
+    public class BinarySearchTree<K,V>
+        where K : IComparable<K>
     {
-        internal Node<T> Root { get; set; }
+        internal Node<K, V> Root { get; set; }
 
-        public void Insert(T value)
+        public void Insert(K key, V value)
         {
             if (Root == null)
-                InsertTreeFirstValue(value);
+                InsertTreeFirstNode(key, value);
             else
-                InsertTreeNextValue(Root, value);
+                InsertTreeNextNode(Root, key, value);
         }
 
-        public void Remove(T value)
+        public void Remove(K key)
         {
             if (Root == null)
                 return;
 
-            Remove(null, Root, value);
+            Remove(null, Root, key);
         }
 
-        internal Node<T> SearchForOneNode(Func<Node<T>, Value> callback, bool noNullValue = false)
+        internal Node<K, V> SearchForOneNode(Func<Node<K, V>, Key> callback, bool noNullValue = false)
         {
             if (Root == null)
                 return null;
@@ -35,7 +35,7 @@ namespace BinarySearchTree
             return SearchForOneNode(Root, callback, noNullValue);
         }
 
-        internal void TraverseAllNodes(Action<Node<T>, int> callback)
+        internal void TraverseAllNodes(Action<Node<K, V>, int> callback)
         {
             if (Root == null)
                 return;
@@ -45,50 +45,50 @@ namespace BinarySearchTree
             TraverseAllNodes(Root, callback, 1);
         }
 
-        void InsertTreeFirstValue(T value)
+        void InsertTreeFirstNode(K key, V value)
         {
-            Root = new Node<T> { Value = value };
+            Root = new Node<K, V> { Key = key, Value = value };
         }
 
-        void InsertTreeNextValue(Node<T> node, T value)
+        void InsertTreeNextNode(Node<K, V> node, K key, V value)
         {
-            var result = (Value)value.CompareTo(node.Value);
+            var result = (Key)key.CompareTo(node.Key);
 
-            if (IsValueSmaller(result))
-                TryInsertOnNodeLeftSide(node, value);
-            else if (IsValueBigger(result))
-                TryInsertOnNodeRightSide(node, value);
+            if (IsKeySmaller(result))
+                TryInsertOnNodeLeftSide(node, key, value);
+            else if (IsKeyBigger(result))
+                TryInsertOnNodeRightSide(node, key, value);
         }
 
-        void TryInsertOnNodeLeftSide(Node<T> node, T value)
+        void TryInsertOnNodeLeftSide(Node<K, V> node, K key, V value)
         {
             if (node.Left == null)
-                node.Left = new Node<T> { Value = value };
+                node.Left = new Node<K, V> { Key = key, Value = value };
             else
-                InsertTreeNextValue(node.Left, value);
+                InsertTreeNextNode(node.Left, key, value);
         }
 
-        void TryInsertOnNodeRightSide(Node<T> node, T value)
+        void TryInsertOnNodeRightSide(Node<K, V> node, K key, V value)
         {
             if (node.Right == null)
-                node.Right = new Node<T> { Value = value };
+                node.Right = new Node<K, V> { Key = key, Value = value };
             else
-                InsertTreeNextValue(node.Right, value);
+                InsertTreeNextNode(node.Right, key, value);
         }
 
-        void Remove(Node<T> parent, Node<T> node, T value)
+        void Remove(Node<K, V> parent, Node<K, V> node, K key)
         {
-            var result = (Value)value.CompareTo(node.Value);
+            var result = (Key)key.CompareTo(node.Key);
 
-            if (IsValueEqual(result))
+            if (IsKeyEqual(result))
                 RemoveNode(parent, node);
-            else if (IsValueSmaller(result))
-                Remove(node, node.Left, value);
-            else if (IsValueBigger(result))
-                Remove(node, node.Right, value);
+            else if (IsLeftNodeNotNull(node) && IsKeySmaller(result))
+                Remove(node, node.Left, key);
+            else if (IsRightNodeNotNull(node) && IsKeyBigger(result))
+                Remove(node, node.Right, key);
         }
 
-        void RemoveNode(Node<T> parent, Node<T> node)
+        void RemoveNode(Node<K, V> parent, Node<K, V> node)
         {
             if (IsLeftNodeNotNull(node) && IsRightNodeNotNull(node))
                 ReplaceNodeInParentWithSmallestChild(parent, node);
@@ -103,9 +103,9 @@ namespace BinarySearchTree
                 ReplaceNodeInParentWithChild(parent, node, null);
         }
 
-        void ReplaceNodeInParentWithSmallestChild(Node<T> parent, Node<T> node)
+        void ReplaceNodeInParentWithSmallestChild(Node<K, V> parent, Node<K, V> node)
         {
-            Node<T> child = null;
+            Node<K, V> child = null;
             for (var current = node.Right; current != null; current = current.Left)
             {
                 child = current.Left ?? node.Right;
@@ -119,7 +119,7 @@ namespace BinarySearchTree
             ReplaceNodeInParentWithChild(parent, node, child);
         }
 
-        void ReplaceNodeInParentWithChild(Node<T> parent, Node<T> node, Node<T> child)
+        void ReplaceNodeInParentWithChild(Node<K, V> parent, Node<K, V> node, Node<K, V> child)
         {
             if (parent == null)
             {
@@ -136,23 +136,23 @@ namespace BinarySearchTree
                 parent.Right = child;
         }
 
-        Node<T> SearchForOneNode(Node<T> node, Func<Node<T>, Value> callback, bool noNullValue)
+        Node<K, V> SearchForOneNode(Node<K, V> node, Func<Node<K, V>, Key> callback, bool noNullValue)
         {
             var result = callback(node);
 
-            if (IsValueEqual(result))
+            if (IsKeyEqual(result))
                 return node;
 
-            if (IsValueSmaller(result) && IsLeftNodeNotNull(node))
+            if (IsKeySmaller(result) && IsLeftNodeNotNull(node))
                 return SearchForOneNode(node.Left, callback, noNullValue);
 
-            if (IsValueBigger(result) && IsRightNodeNotNull(node))
+            if (IsKeyBigger(result) && IsRightNodeNotNull(node))
                 return SearchForOneNode(node.Right, callback, noNullValue);
 
             return noNullValue ? node : null;
         }
 
-        void TraverseAllNodes(Node<T> node, Action<Node<T>, int> callback, int level)
+        void TraverseAllNodes(Node<K, V> node, Action<Node<K, V>, int> callback, int level)
         {
             if (IsLeftNodeNotNull(node))
                 TraverseAllNodes(node.Left, callback, level + 1);
@@ -163,29 +163,29 @@ namespace BinarySearchTree
                 TraverseAllNodes(node.Right, callback, level + 1);
         }
 
-        bool IsLeftNodeNotNull(Node<T> node)
+        bool IsLeftNodeNotNull(Node<K, V> node)
         {
             return node.Left != null;
         }
 
-        bool IsRightNodeNotNull(Node<T> node)
+        bool IsRightNodeNotNull(Node<K, V> node)
         {
             return node.Right != null;
         }
 
-        bool IsValueSmaller(Value result)
+        bool IsKeySmaller(Key result)
         {
-            return result <= Value.IsSmaller;
+            return result <= Key.IsSmaller;
         }
 
-        bool IsValueEqual(Value result)
+        bool IsKeyEqual(Key result)
         {
-            return result == Value.IsEqual;
+            return result == Key.IsEqual;
         }
 
-        bool IsValueBigger(Value result)
+        bool IsKeyBigger(Key result)
         {
-            return result >= Value.IsBigger;
+            return result >= Key.IsBigger;
         }
     }
 }

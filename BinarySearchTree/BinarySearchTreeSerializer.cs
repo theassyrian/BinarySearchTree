@@ -6,20 +6,20 @@ using BinarySearchTree.Data;
 
 namespace BinarySearchTree
 {
-    public class BinarySearchTreeSerializer<T>
-        where T : IComparable<T>
+    public class BinarySearchTreeSerializer<K, V>
+        where K : IComparable<K>
     {
-        public BinarySearchTree<T> LoadFrom(string filePath)
+        public BinarySearchTree<K, V> LoadFrom(string filePath)
         {
-            var serializer = new XmlSerializer(typeof(Node<T>));
+            var serializer = new XmlSerializer(typeof(Node<K, V>));
 
             using (var fileStream = new FileStream(filePath, FileMode.Open))
-                return new BinarySearchTree<T> { Root = (Node<T>)serializer.Deserialize(fileStream) };
+                return new BinarySearchTree<K, V> { Root = (Node<K, V>)serializer.Deserialize(fileStream) };
         }
 
-        public void SaveTo(string filePath, BinarySearchTree<T> tree)
+        public void SaveTo(string filePath, BinarySearchTree<K, V> tree)
         {
-            var serializer = new XmlSerializer(typeof(Node<T>));
+            var serializer = new XmlSerializer(typeof(Node<K, V>));
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
                 serializer.Serialize(fileStream, tree.Root);

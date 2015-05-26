@@ -70,7 +70,7 @@
     <Compile Include="BinarySearchTreeSerializer.cs" />
     <Compile Include="Data\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Value.cs" />
+    <Compile Include="Key.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
