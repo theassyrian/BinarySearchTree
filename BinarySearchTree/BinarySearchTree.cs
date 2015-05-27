@@ -100,19 +100,19 @@ namespace BinarySearchTree
         void RemoveNode(Node<K, V> parent, Node<K, V> node)
         {
             if (IsLeftNodeNotNull(node) && IsRightNodeNotNull(node))
-                ReplaceNodeInParentWithChild(parent, node, GetSmallestChild(node.Right));
-
-            else if (IsLeftNodeNotNull(node))
-                ReplaceNodeInParentWithChild(parent, node, node.Left);
+                ReplaceNodeInParentWithChild(parent, node, GetAndReplaceSmallestChild(node.Right));
 
             else if (IsRightNodeNotNull(node))
                 ReplaceNodeInParentWithChild(parent, node, node.Right);
+
+            else if (IsLeftNodeNotNull(node))
+                ReplaceNodeInParentWithChild(parent, node, node.Left);
 
             else
                 ReplaceNodeInParentWithChild(parent, node, null);
         }
 
-        Node<K, V> GetSmallestChild(Node<K, V> node)
+        Node<K, V> GetAndReplaceSmallestChild(Node<K, V> node)
         {
             Node<K, V> smallestChild = null;
             for (var current = node; current != null; current = current.Left)
@@ -120,7 +120,8 @@ namespace BinarySearchTree
                 smallestChild = current.Left ?? node;
                 if (smallestChild.Left == null)
                 {
-                    current.Left = null;
+                    current.Left = smallestChild.Right;
+                    smallestChild.Right = null;
                     break;
                 }
             }
@@ -131,18 +132,19 @@ namespace BinarySearchTree
         void ReplaceNodeInParentWithChild(Node<K, V> parent, Node<K, V> node, Node<K, V> child)
         {
             if (parent == null)
-            {
-                if (Root.Right != child)
-                    child.Right = Root.Right;
-                if (Root.Left != child)
-                    child.Left = Root.Left;
-
                 Root = child;
-            }
             else if (parent.Left == node)
                 parent.Left = child;
             else if (parent.Right == node)
                 parent.Right = child;
+
+            if (child != null)
+            {
+                if (node.Left != child)
+                    child.Left = node.Left;
+                if (node.Right != child)
+                    child.Right = node.Right;
+            }
         }
 
         Node<K, V> SearchForOneNode(Node<K, V> node, Func<Node<K, V>, Key> callback, bool noNullValue)

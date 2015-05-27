@@ -121,7 +121,7 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = SimpleTree.Create();
 
-            var value = bst[SimpleTree.NotAnElement.Key];
+            var value = bst[SimpleTree.NotExistingElement.Key];
 
             Assert.Equal(default(int), value);
         }
@@ -129,7 +129,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Remove_RemoveFromAnEmptyTree_NoExceptions()
         {
-            var notAnElement = SimpleTree.NotAnElement;
+            var notAnElement = SimpleTree.NotExistingElement;
             var emptyTree = new BinarySearchTree<int, int>();
 
             emptyTree.Remove(notAnElement.Key);
@@ -307,11 +307,12 @@ namespace BinarySearchTree.UnitTests
         }
 
         [Fact]
-        public void Remove_TheRootFromAComplexTree_TheCorrectTree()
+        public void Remove_TheRootFromATwoLevelTree_TheCorrectTree()
         {
+            var rootNode = SimpleTree.RootElement;
             var bst = SimpleTree.Create();
 
-            bst.Remove(SimpleTree.RootElement.Key);
+            bst.Remove(rootNode.Key);
 
             NodeAssert.NotNullAndEqual(bst.Root, Node(5));
             NodeAssert.BothChildrenAreNotNull(bst.Root);
@@ -324,11 +325,12 @@ namespace BinarySearchTree.UnitTests
         }
 
         [Fact]
-        public void Remove_ANotElementFromAComplexTree_TheCorrectTree()
+        public void Remove_ANotExistingElementFromATwoLevelTree_TheCorrectTree()
         {
+            var notExistingNode = SimpleTree.NotExistingElement;
             var bst = SimpleTree.Create();
 
-            bst.Remove(SimpleTree.NotAnElement.Key);
+            bst.Remove(notExistingNode.Key);
 
             NodeAssert.NotNullAndEqual(bst.Root, SimpleTree.RootElement);
             NodeAssert.BothChildrenAreNotNull(bst.Root);
@@ -338,6 +340,30 @@ namespace BinarySearchTree.UnitTests
 
             NodeAssert.NotNullAndEqual(bst.Root.Left, SimpleTree.SecondSmallestElement);
             NodeAssert.BothChildrenAreNotNull(bst.Root.Left);
+        }
+
+        [Fact]
+        public void Remove_TheRootFromAThreeLevelTree_TheCorrectTree()
+        {
+            var firstNode = Node(9);
+            var rootNode = ComplexTree.RootElement;
+            var bst = ComplexTree.Create();
+
+            bst.Remove(firstNode.Key);
+            bst.Remove(rootNode.Key);
+
+            NodeAssert.NotNullAndEqual(bst.Root, Node(10));
+            NodeAssert.BothChildrenAreNotNull(bst.Root);
+
+            NodeAssert.NotNullAndEqual(bst.Root.Right, Node(12));
+            NodeAssert.BothChildrenAreNotNull(bst.Root.Right);
+            NodeAssert.BothChildrenAreNull(bst.Root.Right.Left);
+            NodeAssert.BothChildrenAreNotNull(bst.Root.Right.Right);
+
+            NodeAssert.NotNullAndEqual(bst.Root.Left, Node(4));
+            NodeAssert.BothChildrenAreNotNull(bst.Root.Left);
+            NodeAssert.BothChildrenAreNotNull(bst.Root.Left.Left);
+            NodeAssert.BothChildrenAreNotNull(bst.Root.Left.Right);
         }
 
         [Fact]

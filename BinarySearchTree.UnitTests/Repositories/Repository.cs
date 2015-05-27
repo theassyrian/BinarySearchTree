@@ -43,7 +43,7 @@ namespace BinarySearchTree.UnitTests.Repositories
             get { return NodeHelper.Create(Elements.Where(e => BiggestElement.Key != NodeHelper.Key(e)).Max()); }
         }
 
-        public Node<int, int> NotAnElement
+        public Node<int, int> NotExistingElement
         {
             get { return NodeHelper.Create(0); }
         }

@@ -39,7 +39,7 @@ namespace BinarySearchTree.UnitTests
         {
             var bst = SimpleTree.Create();
 
-            var exists = bst.Exists(SimpleTree.NotAnElement.Key);
+            var exists = bst.Exists(SimpleTree.NotExistingElement.Key);
 
             Assert.False(exists);
         }
