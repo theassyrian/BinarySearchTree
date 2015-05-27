@@ -100,7 +100,7 @@ namespace BinarySearchTree
         void RemoveNode(Node<K, V> parent, Node<K, V> node)
         {
             if (IsLeftNodeNotNull(node) && IsRightNodeNotNull(node))
-                ReplaceNodeInParentWithSmallestChild(parent, node);
+                ReplaceNodeInParentWithChild(parent, node, GetSmallestChild(node.Right));
 
             else if (IsLeftNodeNotNull(node))
                 ReplaceNodeInParentWithChild(parent, node, node.Left);
@@ -112,20 +112,20 @@ namespace BinarySearchTree
                 ReplaceNodeInParentWithChild(parent, node, null);
         }
 
-        void ReplaceNodeInParentWithSmallestChild(Node<K, V> parent, Node<K, V> node)
+        Node<K, V> GetSmallestChild(Node<K, V> node)
         {
-            Node<K, V> child = null;
-            for (var current = node.Right; current != null; current = current.Left)
+            Node<K, V> smallestChild = null;
+            for (var current = node; current != null; current = current.Left)
             {
-                child = current.Left ?? node.Right;
-                if (child.Left == null)
+                smallestChild = current.Left ?? node;
+                if (smallestChild.Left == null)
                 {
                     current.Left = null;
                     break;
                 }
             }
 
-            ReplaceNodeInParentWithChild(parent, node, child);
+            return smallestChild;
         }
 
         void ReplaceNodeInParentWithChild(Node<K, V> parent, Node<K, V> node, Node<K, V> child)
