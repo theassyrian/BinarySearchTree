@@ -89,39 +89,39 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void IndexedProperty_Get_TheRootElement()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
-            var value = bst[Repository.RootElement.Key];
+            var value = bst[SimpleTree.RootElement.Key];
 
-            Assert.Equal(Repository.RootElement.Value, value);
+            Assert.Equal(SimpleTree.RootElement.Value, value);
         }
 
         [Fact]
         public void IndexedProperty_Get_TheLeftElement()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
-            var value = bst[Repository.SmallestElement.Key];
+            var value = bst[SimpleTree.SmallestElement.Key];
 
-            Assert.Equal(Repository.SmallestElement.Value, value);
+            Assert.Equal(SimpleTree.SmallestElement.Value, value);
         }
 
         [Fact]
         public void IndexedProperty_Get_TheRightElement()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
-            var value = bst[Repository.BiggestElement.Key];
+            var value = bst[SimpleTree.BiggestElement.Key];
 
-            Assert.Equal(Repository.BiggestElement.Value, value);
+            Assert.Equal(SimpleTree.BiggestElement.Value, value);
         }
 
         [Fact]
         public void IndexedProperty_TryGetANotAnElement_DefaultValue()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
-            var value = bst[Repository.NotAnElement.Key];
+            var value = bst[SimpleTree.NotAnElement.Key];
 
             Assert.Equal(default(int), value);
         }
@@ -129,7 +129,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Remove_RemoveFromAnEmptyTree_NoExceptions()
         {
-            var notAnElement = Repository.NotAnElement;
+            var notAnElement = SimpleTree.NotAnElement;
             var emptyTree = new BinarySearchTree<int, int>();
 
             emptyTree.Remove(notAnElement.Key);
@@ -309,34 +309,34 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Remove_TheRootFromAComplexTree_TheCorrectTree()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
-            bst.Remove(Repository.RootElement.Key);
+            bst.Remove(SimpleTree.RootElement.Key);
 
             NodeAssert.NotNullAndEqual(bst.Root, Node(5));
             NodeAssert.BothChildrenAreNotNull(bst.Root);
 
-            NodeAssert.NotNullAndEqual(bst.Root.Right, Repository.SecondBiggestElement);
+            NodeAssert.NotNullAndEqual(bst.Root.Right, SimpleTree.SecondBiggestElement);
             NodeAssert.LeftChildIsNull(bst.Root.Right);
 
-            NodeAssert.NotNullAndEqual(bst.Root.Left, Repository.SecondSmallestElement);
+            NodeAssert.NotNullAndEqual(bst.Root.Left, SimpleTree.SecondSmallestElement);
             NodeAssert.BothChildrenAreNotNull(bst.Root.Left);
         }
 
         [Fact]
         public void Remove_ANotElementFromAComplexTree_TheCorrectTree()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
-            bst.Remove(Repository.NotAnElement.Key);
+            bst.Remove(SimpleTree.NotAnElement.Key);
 
-            NodeAssert.NotNullAndEqual(bst.Root, Repository.RootElement);
+            NodeAssert.NotNullAndEqual(bst.Root, SimpleTree.RootElement);
             NodeAssert.BothChildrenAreNotNull(bst.Root);
 
-            NodeAssert.NotNullAndEqual(bst.Root.Right, Repository.SecondBiggestElement);
+            NodeAssert.NotNullAndEqual(bst.Root.Right, SimpleTree.SecondBiggestElement);
             NodeAssert.BothChildrenAreNotNull(bst.Root.Right);
 
-            NodeAssert.NotNullAndEqual(bst.Root.Left, Repository.SecondSmallestElement);
+            NodeAssert.NotNullAndEqual(bst.Root.Left, SimpleTree.SecondSmallestElement);
             NodeAssert.BothChildrenAreNotNull(bst.Root.Left);
         }
 
@@ -353,7 +353,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_ThrowsOnNullCallback_Exception()
         {
-            var emptyTree = Repository.CreateTree();
+            var emptyTree = SimpleTree.CreateTree();
 
             Assert.Throws<ArgumentNullException>(() => emptyTree.SearchForOneNode(null));
         }
@@ -361,7 +361,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_WalkThroughTheLeftPath_NoSuchNode()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsSmaller);
 
@@ -371,7 +371,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_WalkThroughTheRightPath_NoSuchNode()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsBigger);
 
@@ -381,31 +381,31 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_WalkThroughTheLeftPathNoEmptyValue_SmallestElement()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsSmaller, true);
 
-            NodeAssert.NotNullAndEqual(Repository.SmallestElement, node);
+            NodeAssert.NotNullAndEqual(SimpleTree.SmallestElement, node);
         }
 
         [Fact]
         public void SearchForOneNode_WalkThroughTheRightPathNoEmptyValue_BiggestElement()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsBigger, true);
 
-            NodeAssert.NotNullAndEqual(Repository.BiggestElement, node);
+            NodeAssert.NotNullAndEqual(SimpleTree.BiggestElement, node);
         }
 
         [Fact]
         public void SearchForOneNode_AcceptRootElement_RootElement()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsEqual);
 
-            NodeAssert.NotNullAndEqual(Repository.RootElement, node);
+            NodeAssert.NotNullAndEqual(SimpleTree.RootElement, node);
         }
 
         [Fact]
@@ -419,7 +419,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void TraverseAllNodes_ThrowsOnNullCallback_Exception()
         {
-            var emptyTree = Repository.CreateTree();
+            var emptyTree = SimpleTree.CreateTree();
 
             Assert.Throws<ArgumentNullException>(() => emptyTree.TraverseAllNodes(null));
         }
@@ -427,13 +427,13 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void TraverseAllNodes_WalksTroughAllElements()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
             List<int> elements = new List<int>();
             bst.TraverseAllNodes((n, l) => elements.Add(n.Value));
 
-            Assert.Equal(Repository.Size, elements.Count);
-            Assert.All(elements, elem => Repository.TreeContains(elem));
+            Assert.Equal(SimpleTree.Size, elements.Count);
+            Assert.All(elements, elem => SimpleTree.TreeContains(elem));
         }
 
         Node<int, int> Node(int number)
@@ -449,6 +449,16 @@ namespace BinarySearchTree.UnitTests
         int Value(int number)
         {
             return NodeHelper.Value(number);
+        }
+
+        Repository SimpleTree
+        {
+            get { return Repository.SimpleTree; }
+        }
+
+        Repository ComplexTree
+        {
+            get { return Repository.ComplexTree; }
         }
     }
 }

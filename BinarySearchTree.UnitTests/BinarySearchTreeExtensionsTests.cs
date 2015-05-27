@@ -9,27 +9,27 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Max_FindBiggestElement_BiggestElement()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
             var value = bst.Max();
 
-            Assert.Equal(Repository.BiggestElement.Value, value);
+            Assert.Equal(SimpleTree.BiggestElement.Value, value);
         }
 
         [Fact]
         public void Min_FindSmallestElement_SmallestElement()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
             var value = bst.Max();
 
-            Assert.Equal(Repository.BiggestElement.Value, value);
+            Assert.Equal(SimpleTree.BiggestElement.Value, value);
         }
 
         [Fact]
         public void Exists_CheckIfElementExists_ItExists()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
-            var exists = bst.Exists(Repository.BiggestElement.Key);
+            var exists = bst.Exists(SimpleTree.BiggestElement.Key);
 
             Assert.True(exists);
         }
@@ -37,9 +37,9 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Exists_CheckIfElementExists_ItDoesntExist()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
 
-            var exists = bst.Exists(Repository.NotAnElement.Key);
+            var exists = bst.Exists(SimpleTree.NotAnElement.Key);
 
             Assert.False(exists);
         }
@@ -47,10 +47,15 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Size_MeasureSizeOfTree_Size()
         {
-            var bst = Repository.CreateTree();
+            var bst = SimpleTree.CreateTree();
             var size = bst.Size();
 
-            Assert.Equal(Repository.Size, size);
+            Assert.Equal(SimpleTree.Size, size);
+        }
+
+        Repository SimpleTree
+        {
+            get { return Repository.SimpleTree; }
         }
     }
 }
