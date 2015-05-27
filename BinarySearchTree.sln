@@ -7,6 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearchTree", "BinaryS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearchTree.UnitTests", "BinarySearchTree.UnitTests\BinarySearchTree.UnitTests.csproj", "{B5837E46-F809-40D4-A7BD-FB5C4A1F74A9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{61FE7F1C-C576-4AAC-952F-73B7EBCC51AB}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9ED7B50C-58C5-4DAF-B3CE-A3374AAAB4CF}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,7 +32,6 @@ Global
 		{B5837E46-F809-40D4-A7BD-FB5C4A1F74A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5837E46-F809-40D4-A7BD-FB5C4A1F74A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5837E46-F809-40D4-A7BD-FB5C4A1F74A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5837E46-F809-40D4-A7BD-FB5C4A1F74A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

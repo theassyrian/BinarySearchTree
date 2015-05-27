@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>vajkayrene.BinarySearchTree</id>
+        <version>1.0.0</version>
+        <title>BinarySearchTree</title>
+        <authors>vajkayrene</authors>
+        <licenseUrl>https://github.com/vajkayrene/BinarySearchTree/blob/master/LICENSE</licenseUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Implementation of a binary search tree data structure for .NET Framework.</description>
+        <summary>MIT</summary>
+        <tags>binarysearchtree</tags>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+            <frameworkAssembly assemblyName="System" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Data" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="bin\Release\BinarySearchTree.dll" target="lib\BinarySearchTree.dll" />
+        <file src="bin\Release\BinarySearchTree.dll.config" target="lib\BinarySearchTree.dll.config" />
+        <file src="bin\Release\BinarySearchTree.pdb" target="lib\BinarySearchTree.pdb" />
+    </files>
+</package>
