@@ -14,12 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{61FE7F
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9ED7B50C-58C5-4DAF-B3CE-A3374AAAB4CF}"
-	ProjectSection(SolutionItems) = preProject
-		LICENSE = LICENSE
-		README = README
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearchTree.Examples", "BinarySearchTree.Examples\BinarySearchTree.Examples.csproj", "{28EAF4BB-6F41-4275-955F-497287A31980}"
 EndProject
 Global
