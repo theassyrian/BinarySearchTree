@@ -89,7 +89,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void IndexedProperty_Get_TheRootElement()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var value = bst[SimpleTree.RootElement.Key];
 
@@ -99,7 +99,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void IndexedProperty_Get_TheLeftElement()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var value = bst[SimpleTree.SmallestElement.Key];
 
@@ -109,7 +109,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void IndexedProperty_Get_TheRightElement()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var value = bst[SimpleTree.BiggestElement.Key];
 
@@ -119,7 +119,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void IndexedProperty_TryGetANotAnElement_DefaultValue()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var value = bst[SimpleTree.NotAnElement.Key];
 
@@ -309,7 +309,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Remove_TheRootFromAComplexTree_TheCorrectTree()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             bst.Remove(SimpleTree.RootElement.Key);
 
@@ -326,7 +326,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Remove_ANotElementFromAComplexTree_TheCorrectTree()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             bst.Remove(SimpleTree.NotAnElement.Key);
 
@@ -353,7 +353,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_ThrowsOnNullCallback_Exception()
         {
-            var emptyTree = SimpleTree.CreateTree();
+            var emptyTree = SimpleTree.Create();
 
             Assert.Throws<ArgumentNullException>(() => emptyTree.SearchForOneNode(null));
         }
@@ -361,7 +361,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_WalkThroughTheLeftPath_NoSuchNode()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsSmaller);
 
@@ -371,7 +371,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_WalkThroughTheRightPath_NoSuchNode()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsBigger);
 
@@ -381,7 +381,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_WalkThroughTheLeftPathNoEmptyValue_SmallestElement()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsSmaller, true);
 
@@ -391,7 +391,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_WalkThroughTheRightPathNoEmptyValue_BiggestElement()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsBigger, true);
 
@@ -401,7 +401,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void SearchForOneNode_AcceptRootElement_RootElement()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var node = bst.SearchForOneNode(v => Bst.Key.IsEqual);
 
@@ -419,7 +419,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void TraverseAllNodes_ThrowsOnNullCallback_Exception()
         {
-            var emptyTree = SimpleTree.CreateTree();
+            var emptyTree = SimpleTree.Create();
 
             Assert.Throws<ArgumentNullException>(() => emptyTree.TraverseAllNodes(null));
         }
@@ -427,7 +427,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void TraverseAllNodes_WalksTroughAllElements()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             List<int> elements = new List<int>();
             bst.TraverseAllNodes((n, l) => elements.Add(n.Value));

@@ -9,7 +9,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Max_FindBiggestElement_BiggestElement()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
             var value = bst.Max();
 
             Assert.Equal(SimpleTree.BiggestElement.Value, value);
@@ -18,7 +18,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Min_FindSmallestElement_SmallestElement()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
             var value = bst.Max();
 
             Assert.Equal(SimpleTree.BiggestElement.Value, value);
@@ -27,7 +27,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Exists_CheckIfElementExists_ItExists()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var exists = bst.Exists(SimpleTree.BiggestElement.Key);
 
@@ -37,7 +37,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Exists_CheckIfElementExists_ItDoesntExist()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
 
             var exists = bst.Exists(SimpleTree.NotAnElement.Key);
 
@@ -47,7 +47,7 @@ namespace BinarySearchTree.UnitTests
         [Fact]
         public void Size_MeasureSizeOfTree_Size()
         {
-            var bst = SimpleTree.CreateTree();
+            var bst = SimpleTree.Create();
             var size = bst.Size();
 
             Assert.Equal(SimpleTree.Size, size);

@@ -53,7 +53,7 @@ namespace BinarySearchTree.UnitTests.Repositories
             return Elements.Contains(element);
         }
 
-        public BinarySearchTree<int, int> CreateTree()
+        public BinarySearchTree<int, int> Create()
         {
             var bst = new BinarySearchTree<int, int>();
             foreach (var elem in Elements)
