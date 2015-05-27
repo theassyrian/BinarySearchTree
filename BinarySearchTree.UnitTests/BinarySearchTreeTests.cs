@@ -87,6 +87,46 @@ namespace BinarySearchTree.UnitTests
         }
 
         [Fact]
+        public void IndexedProperty_Get_TheRootElement()
+        {
+            var bst = Repository.CreateTree();
+
+            var value = bst[Repository.RootElement.Key];
+
+            Assert.Equal(Repository.RootElement.Value, value);
+        }
+
+        [Fact]
+        public void IndexedProperty_Get_TheLeftElement()
+        {
+            var bst = Repository.CreateTree();
+
+            var value = bst[Repository.SmallestElement.Key];
+
+            Assert.Equal(Repository.SmallestElement.Value, value);
+        }
+
+        [Fact]
+        public void IndexedProperty_Get_TheRightElement()
+        {
+            var bst = Repository.CreateTree();
+
+            var value = bst[Repository.BiggestElement.Key];
+
+            Assert.Equal(Repository.BiggestElement.Value, value);
+        }
+
+        [Fact]
+        public void IndexedProperty_TryGetANotAnElement_DefaultValue()
+        {
+            var bst = Repository.CreateTree();
+
+            var value = bst[Repository.NotAnElement.Key];
+
+            Assert.Equal(default(int), value);
+        }
+
+        [Fact]
         public void Remove_RemoveFromAnEmptyTree_NoExceptions()
         {
             var notAnElement = Repository.NotAnElement;

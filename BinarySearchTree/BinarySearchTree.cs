@@ -9,6 +9,15 @@ namespace BinarySearchTree
     {
         internal Node<K, V> Root { get; set; }
 
+        public V this[K key]
+        {
+            get 
+            {
+                var node = SearchForOneNode(n => (Key)key.CompareTo(n.Key));
+                return node != null ? node.Value : default(V);
+            }
+        }
+
         public void Insert(K key, V value)
         {
             if (Root == null)
